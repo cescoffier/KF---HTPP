@@ -239,7 +239,6 @@ public class ResponseImpl
   }
 
   public void commit() throws IOException {
-
     if (sos != null)
       sos.flush();
 
@@ -251,6 +250,16 @@ public class ResponseImpl
       setContentLength(bodyOut.getBufferByteCount());
 
     flushBuffer();
+
+    if (request.getQueryString() != null) {
+      Activator.log.debug("Commiting response for "
+              + request.getServletPath() + "?" + request.getQueryString() + " -> "
+              + statusCode + " length: " + headers.get(HeaderBase.CONTENT_LENGTH_HEADER_KEY));
+    } else {
+        Activator.log.debug("Commiting response for "
+                + request.getServletPath() + " -> "
+                + statusCode + " length: " + headers.get(HeaderBase.CONTENT_LENGTH_HEADER_KEY));
+    }
   }
 
   // implements PoolableObject
