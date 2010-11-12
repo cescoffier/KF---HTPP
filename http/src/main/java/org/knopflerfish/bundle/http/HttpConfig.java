@@ -66,6 +66,12 @@ public class HttpConfig {
   public final static String REQ_CLIENT_AUTH_KEY = "req.client.auth";
   private static final int HTTP_PORT_DEFAULT = 80;
   private static final int HTTPS_PORT_DEFAULT = 443;
+
+  /**
+   * Property enabling the stop fast (no join during shutdown).
+   */
+  public final static String STOP_FAST = "stop.fast";
+
   public final static String DEFAULT_CHAR_ENCODING_KEY
     = "org.knopflerfish.http.encoding.default";
 
@@ -92,6 +98,11 @@ public class HttpConfig {
   private String defaultCharEncoding = "ISO-8859-1";
   private boolean requireClientAuth = false;
 
+  /**
+   * Stop fast.
+   */
+  private boolean stopFast = false;
+
   // constructor(s)
 
   public HttpConfig(BundleContext bc, Dictionary configuration)
@@ -111,6 +122,12 @@ public class HttpConfig {
                getPropertyAsBoolean(bc,
                                     "org.knopflerfish.http.enabled",
                                     "true"));
+
+    config.put(HttpConfig.STOP_FAST,
+            getPropertyAsBoolean(bc,
+                                 "org.knopflerfish.http.stopfast",
+                                 "false"));
+
     config.put(HttpConfig.HTTPS_ENABLED_KEY,
                getPropertyAsBoolean(bc,
                                     "org.knopflerfish.http.secure.enabled",
@@ -256,8 +273,12 @@ public class HttpConfig {
         } else if (key.equals(REQ_CLIENT_AUTH_KEY)) {
           this.requireClientAuth = ((Boolean) value).booleanValue();
           this.configuration.put(key, value);
-        } else
+        } else if (key.equals(STOP_FAST)) {
+          this.stopFast = ((Boolean) value).booleanValue();
           this.configuration.put(key, value);
+        } else {
+          this.configuration.put(key, value);
+        }
       } catch (IndexOutOfBoundsException ioobe) {
         throw new ConfigurationException(key, "Wrong type");
       } catch (ClassCastException cce) {
@@ -330,6 +351,10 @@ public class HttpConfig {
   public void setHttpsPort(int port) {
     this.httpsPort = port;
     configuration.put(HTTPS_PORT_KEY, new Integer(port));
+  }
+
+  public boolean getStopFast() {
+      return stopFast;
   }
 
   public boolean getDNSLookup() {

@@ -117,4 +117,8 @@ public class HttpConfigWrapper {
         return config.requireClientAuth();
     }
 
+    public boolean getStopFast() {
+        return config.getStopFast();
+    }
+
 }
