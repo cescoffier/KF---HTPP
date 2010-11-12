@@ -38,7 +38,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-import org.knopflerfish.service.log.LogRef;
+import org.slf4j.Logger;
 
 public class TransactionManager extends ThreadGroup {
 
@@ -48,7 +48,7 @@ public class TransactionManager extends ThreadGroup {
 
     private static int transactionCount = 0;
 
-    private final LogRef log;
+    private final Logger log;
 
     final Registrations registrations;
 
@@ -60,7 +60,7 @@ public class TransactionManager extends ThreadGroup {
 
     // constructors
 
-    public TransactionManager(final LogRef log,
+    public TransactionManager(final Logger log,
             final Registrations registrations,
             final HttpSessionManager sessionManager) {
 
@@ -111,7 +111,7 @@ public class TransactionManager extends ThreadGroup {
 
         if (t instanceof ThreadDeath) {
 
-        } else if (log.doDebug()) {
+        } else if (log.isDebugEnabled()) {
             log.debug("Internal error", t);
         }
     }

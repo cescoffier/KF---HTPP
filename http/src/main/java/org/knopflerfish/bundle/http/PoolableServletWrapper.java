@@ -36,6 +36,7 @@ package org.knopflerfish.bundle.http;
 
 import javax.servlet.Servlet;
 
+
 public class PoolableServletWrapper implements PoolableObject {
 
     // private fields

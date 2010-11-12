@@ -45,7 +45,6 @@ import java.net.URLConnection;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Stack;
-import java.util.Vector;
 import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.RequestDispatcher;
@@ -61,8 +60,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.http.HttpContext;
-
-import org.knopflerfish.service.log.LogRef;
+import org.slf4j.Logger;
 
 public class RequestDispatcherImpl
   implements RequestDispatcher
@@ -199,8 +197,8 @@ public class RequestDispatcherImpl
         } catch (IllegalArgumentException iae){
           // An 'If-Modified-Since' header is present but the value
           // can not be parsed; ignore it.
-          final LogRef log = Activator.log;
-          if (null!=log && log.doDebug()) {
+          final Logger log = Activator.log;
+          if (null!=log && log.isDebugEnabled()) {
             log.debug("Ignoring broken 'If-Modified-Since' header: "
                       +iae.getMessage(), iae);
           }

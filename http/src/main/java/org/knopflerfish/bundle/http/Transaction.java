@@ -45,7 +45,7 @@ import java.net.SocketException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
-import org.knopflerfish.service.log.LogRef;
+import org.slf4j.Logger;
 
 public class Transaction
   implements Runnable, PoolableObject
@@ -66,13 +66,13 @@ public class Transaction
 
     // protected fields
 
-    protected LogRef log;
+    protected Logger log;
 
     protected Socket client = null;
 
     // constructors
 
-    public Transaction(final LogRef log,
+    public Transaction(final Logger log,
                        final Registrations registrations,
                        final ObjectPool requestPool,
                        final ObjectPool responsePool)
@@ -191,7 +191,7 @@ public class Transaction
         } catch (ThreadDeath td) {
             throw td;
         } catch (Throwable t) {
-            if (log.doError())
+            if (log.isErrorEnabled())
                 log.error("Internal error: "+t, t);
             try {
                 response.init(os, request, httpConfig);

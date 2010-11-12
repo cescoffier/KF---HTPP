@@ -35,7 +35,6 @@
 package org.knopflerfish.bundle.http;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Dictionary;

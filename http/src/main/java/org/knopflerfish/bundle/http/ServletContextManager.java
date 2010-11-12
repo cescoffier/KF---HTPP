@@ -39,8 +39,8 @@ import java.util.Hashtable;
 
 import javax.servlet.ServletContext;
 
-import org.knopflerfish.service.log.LogRef;
 import org.osgi.service.http.HttpContext;
+import org.slf4j.Logger;
 
 public class ServletContextManager {
 
@@ -80,13 +80,13 @@ public class ServletContextManager {
 
     private final HttpConfig httpConfig;
 
-    private final LogRef log;
+    private final Logger log;
 
     private final Registrations registrations;
 
     // constructors
 
-    public ServletContextManager(final HttpConfig httpConfig, final LogRef log,
+    public ServletContextManager(final HttpConfig httpConfig, final Logger log,
             final Registrations registrations) {
 
         this.httpConfig = httpConfig;

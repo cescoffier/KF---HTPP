@@ -48,14 +48,11 @@ import java.util.GregorianCalendar;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
-
-import java.net.URL;
 
 public class ResponseImpl
   implements Response, PoolableObject

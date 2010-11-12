@@ -38,10 +38,10 @@ import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import org.knopflerfish.service.log.LogRef;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedServiceFactory;
+import org.slf4j.Logger;
 
 public class HttpServerFactory implements ManagedServiceFactory {
 
@@ -51,13 +51,13 @@ public class HttpServerFactory implements ManagedServiceFactory {
 
     private final BundleContext bc;
 
-    private final LogRef log;
+    private final Logger log;
 
     private final Dictionary servers = new Hashtable();
 
     // constructors
 
-    HttpServerFactory(final BundleContext bc, final LogRef log) {
+    HttpServerFactory(final BundleContext bc, final Logger log) {
 
         this.bc = bc;
         this.log = log;
@@ -80,12 +80,12 @@ public class HttpServerFactory implements ManagedServiceFactory {
             throws ConfigurationException {
 
         synchronized (updateLock) {
-            if (log.doDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug("Updated pid=" + pid);
             }
 
             if (DEFAULT_PID.equals(pid) && servers.size() > 0) {
-                if (log.doDebug()) {
+                if (log.isDebugEnabled()) {
                     log.debug("Skip default since we already have something");
                 }
                 return;
@@ -93,7 +93,7 @@ public class HttpServerFactory implements ManagedServiceFactory {
 
             // As soon as we get a "non-default"-config, delete default
             if (!DEFAULT_PID.equals(pid) && (null != servers.get(DEFAULT_PID))) {
-                if (log.doDebug()) {
+                if (log.isDebugEnabled()) {
                     log
                             .debug("Overriding default instance with new pid "
                                     + pid);
@@ -103,7 +103,7 @@ public class HttpServerFactory implements ManagedServiceFactory {
 
             HttpServer httpServer = (HttpServer) servers.get(pid);
             if (httpServer == null) {
-                if (log.doDebug()) {
+                if (log.isDebugEnabled()) {
                     log.debug("create pid=" + pid);
                 }
                 httpServer = new HttpServer(bc,
@@ -125,7 +125,7 @@ public class HttpServerFactory implements ManagedServiceFactory {
 
         HttpServer httpServer = (HttpServer) servers.remove(pid);
         if (httpServer != null) {
-            if (log.doDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug("delete pid=" + pid);
             }
             httpServer.destroy();

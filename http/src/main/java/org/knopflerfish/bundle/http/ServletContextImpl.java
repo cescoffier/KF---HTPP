@@ -44,8 +44,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
-import org.knopflerfish.service.log.LogRef;
 import org.osgi.service.http.HttpContext;
+import org.slf4j.Logger;
 
 public class ServletContextImpl implements ServletContext {
 
@@ -57,7 +57,7 @@ public class ServletContextImpl implements ServletContext {
 
     private final HttpConfig httpConfig;
 
-    private final LogRef log;
+    private final Logger log;
 
     private final Registrations registrations;
 
@@ -68,7 +68,7 @@ public class ServletContextImpl implements ServletContext {
     ServletContextImpl(final HttpContext httpContext,
                        final String realPath,
                        final HttpConfig httpConfig,
-                       final LogRef log,
+                       final Logger log,
                        final Registrations registrations)
     {
 
@@ -156,7 +156,7 @@ public class ServletContextImpl implements ServletContext {
     }
 
     public void log(final String message) {
-        if (log.doInfo())
+        if (log.isInfoEnabled())
             log.info(message);
     }
 
@@ -165,7 +165,7 @@ public class ServletContextImpl implements ServletContext {
     }
 
     public void log(final String message, final Throwable throwable) {
-        if (log.doWarn())
+        if (log.isWarnEnabled())
             log.warn(message, throwable);
     }
 

@@ -42,12 +42,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import org.knopflerfish.service.log.LogRef;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
+import org.slf4j.Logger;
 
 public class SocketListener implements Runnable, ServiceTrackerCustomizer {
 
@@ -59,7 +59,7 @@ public class SocketListener implements Runnable, ServiceTrackerCustomizer {
 
     private final HttpConfigWrapper httpConfig;
 
-    private final LogRef log;
+    private final Logger log;
 
     private final TransactionManager transactionManager;
 
@@ -91,7 +91,7 @@ public class SocketListener implements Runnable, ServiceTrackerCustomizer {
     // constructors
 
     public SocketListener(final HttpConfigWrapper httpConfig,
-                          final LogRef log,
+                          final Logger log,
                           final TransactionManager transactionManager,
                           final BundleContext bc,
                           final HttpServer httpServer)
@@ -154,7 +154,7 @@ public class SocketListener implements Runnable, ServiceTrackerCustomizer {
         if (!isSecure) {
             // for HTTP create the socket right away AND start
             try {
-                if (log.doDebug())
+                if (log.isDebugEnabled())
                     log.debug("Creating socket");
                 if (host == null || host.length() == 0) {
                     socket = new ServerSocket(port, maxConnections);
@@ -170,7 +170,7 @@ public class SocketListener implements Runnable, ServiceTrackerCustomizer {
                 init();
 
             } catch (Exception e) {
-                if (log.doDebug())
+                if (log.isDebugEnabled())
                     log.debug("Exception creating HTTP Socket", e);
                 throw new ConfigurationException(
                         "Exception creating HTTP Socket", e.toString());
@@ -190,7 +190,7 @@ public class SocketListener implements Runnable, ServiceTrackerCustomizer {
         Object factory = null;
 
         if (this.socket != null) {
-            if (log.doWarn())
+            if (log.isWarnEnabled())
                 log.warn("SEVERAL  SSLServerSocketFactories are available,"
                          +" selection random");
             return null; // do not track
@@ -279,7 +279,7 @@ public class SocketListener implements Runnable, ServiceTrackerCustomizer {
     }
 
     public void removedService(ServiceReference sRef, Object arg1) {
-        if (log.doDebug())
+        if (log.isDebugEnabled())
             log.debug("SSLFactory Security service was removed.");
 
         uninit();
@@ -308,7 +308,7 @@ public class SocketListener implements Runnable, ServiceTrackerCustomizer {
 
         String sch = httpConfig.getScheme().toUpperCase();
 
-        if (log.doInfo())
+        if (log.isInfoEnabled())
             log.info(sch + " server started on port " + port);
 
         thread = new Thread(this, sch + " server:" + port);
@@ -435,17 +435,17 @@ public class SocketListener implements Runnable, ServiceTrackerCustomizer {
                 transactionManager.startTransaction(client, httpConfig);
 
             } catch (InterruptedIOException iioe) {
-                if (!done && log.doDebug())
+                if (!done && log.isDebugEnabled())
                     log.debug("Communication error on "
                             + (host != null ? (host + ":") : "") + port, iioe);
             } catch (IOException ioe) {
-                if (!done && log.doDebug())
+                if (!done && log.isDebugEnabled())
                     log.debug("Communication error on "
                             + (host != null ? (host + ":") : "") + port, ioe);
             } catch (ThreadDeath td) {
                 throw td;
             } catch (Throwable t) {
-                if (!done && log.doDebug())
+                if (!done && log.isDebugEnabled())
                     log.debug("Internal error on"
                             + (host != null ? (host + ":") : "") + port, t);
             }

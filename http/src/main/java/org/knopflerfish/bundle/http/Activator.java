@@ -37,7 +37,6 @@ package org.knopflerfish.bundle.http;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-import org.knopflerfish.service.log.LogRef;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -46,6 +45,8 @@ import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedServiceFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Activator implements BundleActivator {
 
@@ -57,7 +58,7 @@ public class Activator implements BundleActivator {
 
     public static BundleContext bc = null;
 
-    static LogRef log = null;
+    static Logger log = LoggerFactory.getLogger(Activator.class);
 
     // private fields
 
@@ -70,8 +71,6 @@ public class Activator implements BundleActivator {
     public void start(BundleContext bc) {
 
         Activator.bc = bc;
-
-        log = new LogRef(bc, true);
 
         serverFactory = new HttpServerFactory(bc, log);
 
@@ -99,17 +98,17 @@ public class Activator implements BundleActivator {
                     configs = admin.listConfigurations(filter);
                 }
             } catch (Exception e) {
-                if (log.doDebug())
+                if (log.isDebugEnabled())
                     log.debug("Exception when trying to get CM", e);
             }
             if (admin == null) {
-                if (log.doInfo())
+                if (log.isInfoEnabled())
                     log.info("No CM present, using default configuration");
                 serverFactory.updated(HttpServerFactory.DEFAULT_PID, HttpConfig
                         .getDefaultConfig(bc));
             } else {
                 if (configs == null || configs.length == 0) {
-                    if (log.doInfo())
+                    if (log.isInfoEnabled())
                         log
                                 .info("No configuration present, creating default configuration");
 
@@ -118,7 +117,7 @@ public class Activator implements BundleActivator {
                 }
             }
         } catch (ConfigurationException ce) {
-            if (log.doError())
+            if (log.isErrorEnabled())
                 log.error("Configuration error", ce);
 
         } finally {
@@ -136,9 +135,6 @@ public class Activator implements BundleActivator {
 
         serverFactory.destroy();
         serverFactory = null;
-
-        log.close();
-        log = null;
     }
 
 } // Activator

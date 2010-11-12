@@ -40,11 +40,11 @@ import java.util.Vector;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
-import org.knopflerfish.service.log.LogRef;
 import org.osgi.framework.Bundle;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
+import org.slf4j.Logger;
 
 public class HttpServiceImpl
   implements HttpService
@@ -58,7 +58,7 @@ public class HttpServiceImpl
 
     private final Bundle bundle;
 
-    private final LogRef log;
+    private final Logger log;
 
     private final Registrations registrations;
 
@@ -72,7 +72,7 @@ public class HttpServiceImpl
 
     // constructors
 
-    public HttpServiceImpl(final Bundle bundle, final LogRef log,
+    public HttpServiceImpl(final Bundle bundle, final Logger log,
                            final Registrations registrations,
                            final ServletContextManager contextManager)
     {
@@ -104,7 +104,7 @@ public class HttpServiceImpl
         bundleRegistrations.addElement(alias);
         registrations.put(alias, registration);
 
-        if (log.doDebug())
+        if (log.isDebugEnabled())
             log.debug("Alias \"" + alias + "\" was registered by bundle "
                     + bundle.getBundleId());
     }
@@ -117,7 +117,7 @@ public class HttpServiceImpl
         if (destroy)
             registration.destroy();
 
-        if (log.doDebug())
+        if (log.isDebugEnabled())
             log.debug("Alias \"" + alias + "\" was unregistered by bundle "
                     + bundle.getBundleId());
     }

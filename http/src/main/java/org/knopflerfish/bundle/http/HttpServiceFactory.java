@@ -34,16 +34,16 @@
 
 package org.knopflerfish.bundle.http;
 
-import org.knopflerfish.service.log.LogRef;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
+import org.slf4j.Logger;
 
 public class HttpServiceFactory implements ServiceFactory {
 
     // private fields
 
-    private final LogRef log;
+    private final Logger log;
 
     private final Registrations registrations;
 
@@ -51,7 +51,7 @@ public class HttpServiceFactory implements ServiceFactory {
 
     // constructors
 
-    public HttpServiceFactory(final LogRef log,
+    public HttpServiceFactory(final Logger log,
             final Registrations registrations,
             final ServletContextManager contextManager) {
 

@@ -38,10 +38,10 @@ import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import org.knopflerfish.service.log.LogRef;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.ConfigurationException;
+import org.slf4j.Logger;
 
 public class HttpServer {
 
@@ -71,7 +71,7 @@ public class HttpServer {
 
     public HttpServer(BundleContext bc,
                       final HttpConfig httpConfig,
-                      final LogRef log)
+                      final Logger log)
     {
         this.bc = bc;
         this.httpConfig = httpConfig;
