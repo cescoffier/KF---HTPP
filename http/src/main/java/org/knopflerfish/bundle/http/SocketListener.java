@@ -422,6 +422,7 @@ public class SocketListener implements Runnable, ServiceTrackerCustomizer {
                 while (transactionManager.activeCount() >= httpConfig
                         .getMaxConnections()) {
                     try {
+                        Activator.log.warn("Max connection reached " + transactionManager.activeCount());
                         Thread.sleep(50);
                         if (done)
                             break;
