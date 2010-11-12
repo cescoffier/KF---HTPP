@@ -111,8 +111,8 @@ public class TransactionManager extends ThreadGroup {
 
         if (t instanceof ThreadDeath) {
 
-        } else if (log.isDebugEnabled()) {
-            log.debug("Internal error", t);
+        } else {
+            log.error("Internal error", t);
         }
     }
 
