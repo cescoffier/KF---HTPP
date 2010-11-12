@@ -145,6 +145,7 @@ public class RequestDispatcherImpl
       usedURIStack.push(uri);
       try {
         if (servlet instanceof SingleThreadModel) {
+          Activator.log.info("Single Thread Model for " + servlet);
           synchronized (servlet) {
             if (config == null)
               servlet.service(request, response);
@@ -197,11 +198,9 @@ public class RequestDispatcherImpl
         } catch (IllegalArgumentException iae){
           // An 'If-Modified-Since' header is present but the value
           // can not be parsed; ignore it.
-          final Logger log = Activator.log;
-          if (null!=log && log.isDebugEnabled()) {
-            log.debug("Ignoring broken 'If-Modified-Since' header: "
-                      +iae.getMessage(), iae);
-          }
+//          final Logger log = Activator.log;
+//          log.info("Ignoring broken 'If-Modified-Since' header: "
+//                      +iae.getMessage(), iae);
         }
         response.setDateHeader("Last-Modified", date);
       }
@@ -222,7 +221,7 @@ public class RequestDispatcherImpl
       //       is required, since the actual content-length is not
       //       available untill after gzip:ing the contents.
 
-      // HACK CSM for linux: contentLength will allways be 0.  To
+      // HACK CSM for linux: contentLength will always be 0.  To
       //       handle that, we must also buffer the data read from
       //       the URL-connection.
 
