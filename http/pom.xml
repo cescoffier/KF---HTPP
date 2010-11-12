@@ -4,6 +4,9 @@
   <artifactId>http</artifactId>
   <version>3.0.2</version>
   <packaging>bundle</packaging>
+
+  <description>HTTP/HTTPS Server</description>
+
   <dependencies>
     <dependency>
       <groupId>org.osgi</groupId>
@@ -50,6 +53,7 @@
               org.osgi.service.http
                           </Export-Package>
             <Import-Package>*</Import-Package>
+            <Bundle-Activator>org.knopflerfish.bundle.http.Activator</Bundle-Activator>
           </instructions>
         </configuration>
       </plugin>
