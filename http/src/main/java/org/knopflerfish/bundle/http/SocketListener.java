@@ -327,19 +327,22 @@ public class SocketListener implements Runnable, ServiceTrackerCustomizer {
 
         threads = new Thread[transactionManager.activeCount()];
         transactionManager.enumerate(threads);
-        if (! httpConfig.getStopFast()) {
             for (int i = 0; i < threads.length; i++) {
                 if (threads[i] != null) {
                     try {
-                        threads[i].join(5000);
+                        if (! httpConfig.getStopFast()) {
+                            threads[i].join(5000);
+                        } else {
+                            threads[i].join(100);
+                        }
+
                     } catch (InterruptedException ignore) {
                     }
-                    if (threads[i].isAlive()) {
+                    if (! httpConfig.getStopFast() && threads[i].isAlive()) {
                         // TBD, threads[i].stop();
                         log.error("Thread " + threads[i] + ", refuse to stop");
                     }
                 }
-            }
         }
 
         if (thread != null)
