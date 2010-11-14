@@ -4,8 +4,10 @@
   <artifactId>http</artifactId>
   <version>3.0.2-0001-SNAPSHOT</version>
   <packaging>bundle</packaging>
-
-  <description>HTTP/HTTPS Server</description>
+  <name>akquinet / knopflerfish HTTP Server</name>
+  <description>
+    HTTP/HTTPS Server modified by akquinet A.G. to support more options
+  </description>
 
   <dependencies>
     <dependency>
