@@ -60,4 +60,30 @@
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>ats.nexus</id>
+      <distributionManagement>
+        <repository>
+          <id>${repo.thirdparty.id}</id>
+          <name>${repo.thirdparty.name}</name>
+          <url>${repo.thirdparty.url}</url>
+          <uniqueVersion>false</uniqueVersion>
+        </repository>
+
+        <snapshotRepository>
+          <id>${repo.snapshots.id}</id>
+          <name>${repo.snapshots.name}</name>
+          <url>${repo.snapshots.url}</url>
+          <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+      </distributionManagement>
+    </profile>
+  </profiles>
+
+  <scm>
+    <connection>scm:git:git@github.com:cescoffier/KF---HTPP.git</connection>
+    <url>git@github.com:cescoffier/KF---HTPP.git</url>
+    <developerConnection>scm:git:git@github.com:cescoffier/KF---HTPP.git</developerConnection>
+  </scm>
 </project>
