@@ -83,8 +83,8 @@
   </profiles>
 
   <scm>
-    <connection>scm:git:git@github.com:cescoffier/KF---HTPP.git</connection>
-    <url>git@github.com:cescoffier/KF---HTPP.git</url>
-    <developerConnection>scm:git:git@github.com:cescoffier/KF---HTPP.git</developerConnection>
+    <connection>scm:git:git://github.com:cescoffier/KF---HTPP.git</connection>
+    <url>git://github.com:cescoffier/KF---HTPP.git</url>
+    <developerConnection>scm:git:git://github.com:cescoffier/KF---HTPP.git</developerConnection>
   </scm>
 </project>
