@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.knopflerfish</groupId>
   <artifactId>http</artifactId>
-  <version>3.0.2-0001</version>
+  <version>3.0.2-0001-SNAPSHOT</version>
   <packaging>bundle</packaging>
 
   <description>HTTP/HTTPS Server</description>
