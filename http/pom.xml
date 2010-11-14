@@ -64,6 +64,7 @@
     <profile>
       <id>ats.nexus</id>
       <distributionManagement>
+        <!-- releases goes to the third party repository -->
         <repository>
           <id>${repo.thirdparty.id}</id>
           <name>${repo.thirdparty.name}</name>
