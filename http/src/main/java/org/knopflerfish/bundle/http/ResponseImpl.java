@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -302,7 +303,10 @@ public class ResponseImpl
   }
 
   public void setDateHeader(String name, long value) {
-    setHeader(name, HttpUtil.DATE_FORMATS[0].format(new Date(value)));
+    // Cannot use this date format, not thread same
+    // HttpUtil.DATE_FORMATS[0] cannot be used, it's not thread safe !
+    DateFormat format =  new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
+    setHeader(name, format.format(new Date(value)));
   }
 
   public void setHeader(String name, String value) {
@@ -333,7 +337,10 @@ public class ResponseImpl
   }
 
   public void addDateHeader(String name, long value) {
-    addHeader(name, HttpUtil.DATE_FORMATS[0].format(new Date(value)));
+    // Cannot use this DATA_FOMRAT, it's not thread safe
+    //addHeader(name, HttpUtil.DATE_FORMATS[0].format(new Date(value)));
+    DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
+    addHeader(name, format.format(new Date(value)));
   }
 
   public void addHeader(String name, String value) {

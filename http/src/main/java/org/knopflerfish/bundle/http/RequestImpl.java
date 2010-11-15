@@ -42,6 +42,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Locale;
@@ -346,9 +347,15 @@ public class RequestImpl implements Request, PoolableObject {
     if (value == null)
       return -1; // NYI: throw new IllegalArgumentException()???
 
-    for (int i = 0; i < HttpUtil.DATE_FORMATS.length; i++) {
+    // We cannot use HttpUtil.DATA_FORMATS. It's not thread safe.
+    SimpleDateFormat[] formats = {
+        new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US),
+        new SimpleDateFormat("EEEEEE, dd-MMM-yy HH:mm:ss zzz", Locale.US),
+        new SimpleDateFormat("EEE MMMM d HH:mm:ss yyyy", Locale.US) };
+
+    for (int i = 0; i < formats.length; i++) {
       try {
-        return HttpUtil.DATE_FORMATS[i].parse(value).getTime();
+        return formats[i].parse(value).getTime();
       } catch (Exception ignore) {
       }
     }

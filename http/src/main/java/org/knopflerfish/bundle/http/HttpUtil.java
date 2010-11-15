@@ -67,6 +67,7 @@ public class HttpUtil {
     public final static String SESSION_PARAMETER_KEY = ";jsessionid=";
 
     // Acceptable Time/Date formats according to the HTTP specification
+    // Should not be shared ! It's not thread safe.
     public final static SimpleDateFormat[] DATE_FORMATS = {
             new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US),
             new SimpleDateFormat("EEEEEE, dd-MMM-yy HH:mm:ss zzz", Locale.US),
