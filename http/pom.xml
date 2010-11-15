@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.knopflerfish</groupId>
   <artifactId>http</artifactId>
-  <version>3.0.2-0004</version>
+  <version>3.0.2-0005-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>akquinet / knopflerfish HTTP Server</name>
   <description>
